@@ -1,3 +1,4 @@
+# используем язык java. Travis CI поддерживает другие языки тоже.
 language: java
 jdk:
   - openjdk14
