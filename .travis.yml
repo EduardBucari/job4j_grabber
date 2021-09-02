@@ -1,0 +1,30 @@
+language: java
+jdk:
+  - openjdk14
+
+# используем режим обычного пользователя для сборки проекта.
+sudo: false
+
+addons:
+  postgresql: '10'
+services:
+  - postgresql
+before_install:
+  - psql -c 'create database grabber_test;' -U postgres
+
+# после выполнения сборки запустить скрипт, который будет собирать статистику по JaCoCo
+# Здесь используется сторонни сервис https://codecov.io/
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
+
+# Отправлять уведомление на почтуyouremail@smtp.ru(Изменить на свою) если сборка упал
+notifications:
+  email:
+    recipients:
+      eduard.bucari@gmail.com
+    on_success: never # default: change
+    on_failure: always # default: al,ways
+
+env:
+  global:
+    - CODECOV_TOKEN="3115305f-e674-4ef7-9ef2-d7a74989e1d6"
