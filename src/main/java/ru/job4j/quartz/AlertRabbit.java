@@ -14,7 +14,7 @@ import static org.quartz.SimpleScheduleBuilder.*;
 
 /**
  * Job c параметрами.
- * Задание.
+ * Задание:
  * 1. Доработайте класс AlertRabbit. Добавьте в файл rabbit.properties настройки для базы данных.
  * 2. Создайте sql schema с таблицей rabbit и полем created_date.
  * 3. При старте приложения создайте connect к базе и передайте его в Job.
