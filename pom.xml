@@ -56,6 +56,8 @@
     </dependency>
 
     <!-- https://mvnrepository.com/artifact/org.jsoup/jsoup -->
+    <!-- Библиотекой jsoup позволяет сделать запрос на сервер
+         и извлечь нужный текст из полученного HTML. -->
     <dependency>
       <groupId>org.jsoup</groupId>
       <artifactId>jsoup</artifactId>
