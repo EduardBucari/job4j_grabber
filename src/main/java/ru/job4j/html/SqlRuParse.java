@@ -12,28 +12,23 @@ import org.jsoup.select.Elements;
  * По техническому заданию мы должны получит данные с сайта - https://www.sql.ru/forum/job-offers
  * Библиотека jsoup позволяет извлечь текст из HTML по атрибутам тегов HTML.
  *
+ * Задание.
+ * Доработайте метод main. Парсить нужно первые 5 страниц.
+ *
  */
 public class SqlRuParse {
     public static void main(String[] args) throws Exception {
-
-        ////получаем document
-        Document doc = Jsoup.connect("https://www.sql.ru/forum/job-offers").get();
-
-        // Ячейка с именем имеет аттрибут class=postslisttopic
-        // jsoup может извлечь все элементы с этим аттрибутом.
-        // выбираем в document элементы с необходимым id
-        Elements row = doc.select(".postslisttopic");
-
-        // выполним поиск следующим образом:
-        for (Element td : row) {   // проходимся по этим элементам
-            Element href = td.child(0); // спускаемся вниз по дереву (child) и берем 0 элемент (в нашем случае их два)
-            System.out.println(href.attr("href")); // первый элемент - ссылка,
-            System.out.println(href.text()); // второй элемент - текст ссылки.
-
-            // Выводим дату обновления поста:
-            // поднимаемся вверх по дереву и берем пятый элемент,
-            Element date = td.parent().child(5);
-            System.out.println(date.text()); //выводим дату в виде текста.
+        for (int i = 1; i <= 5; i++) {
+            String url = String.format("https://www.sql.ru/forum/job-offers/%s", i);
+            Document doc = Jsoup.connect(url).get();
+            Elements row = doc.select(".postslisttopic");
+            for (Element td : row) {
+                Element href = td.child(0);
+                System.out.println(href.attr("href"));
+                System.out.println(href.text());
+                Element element = td.parent();
+                System.out.println(element.child(5).text());
+            }
         }
     }
 }
