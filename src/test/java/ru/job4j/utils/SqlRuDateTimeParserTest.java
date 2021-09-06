@@ -8,7 +8,6 @@ import static org.junit.Assert.*;
 
 public class SqlRuDateTimeParserTest {
 
-
     @Test
     public void yesterday() {
         LocalDateTime yday = new SqlRuDateTimeParser().parse("вчера, 04:01");
