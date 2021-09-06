@@ -13,20 +13,19 @@ import static org.quartz.TriggerBuilder.*;
 import static org.quartz.SimpleScheduleBuilder.*;
 
 /**
- * Quartz.
+ * Job c параметрами.
  * Задание.
- * 1. Доработать программу AlertRabbit, которая
- *    печатает на консоль текст через каждые 10 секунд.
- * 2. Нужно создать файл rabbit.properties
- *    При запуске программы нужно читать файл rabbit.properties
- *    и подставлять время периода запуска в расписание
- *    rabbit.interval=10
- * Важно! Чтение файла с настройками должно быть в отдельном методе.
- *
+ * 1. Доработайте класс AlertRabbit. Добавьте в файл rabbit.properties настройки для базы данных.
+ * 2. Создайте sql schema с таблицей rabbit и полем created_date.
+ * 3. При старте приложения создайте connect к базе и передайте его в Job.
+ * 4. В Job сделайте запись в таблицу, когда выполнена Job.
+ * 5. Весь main должен работать 10 секунд.
+ *             Thread.sleep(10000);
+ *             scheduler.shutdown();
+ * 6. Закрыть коннект нужно в блоке try-with-resources.
  */
 public class AlertRabbit {
 
-    // Дорабатываем программу:
     private static Properties properties = new Properties();
     private static JobDataMap data = new JobDataMap();
 
@@ -47,50 +46,23 @@ public class AlertRabbit {
     public static void main(String[] args) {
         readProperties();
         try (Connection connection = connect()) {
-            /*
-             * Разберем код:
-             * 1. Конфигурирование.
-             * Начало работы происходит с создания класса управляющего всеми работами.
-             * В объект Scheduler мы будем добавлять задачи, которые хотим выполнять периодически.
-             */
             Scheduler scheduler = StdSchedulerFactory.getDefaultScheduler();
             scheduler.start();
             data.put("conn", connection);
-
-            /*
-             * 2. Создание задачи.
-             * quartz каждый раз создает объект с типом org.quartz.Job.
-             * Вам нужно создать класс реализующий этот интерфейс.
-             */
             JobDetail job = newJob(Rabbit.class).build();
 
-            /*
-             * 3. Создание расписания.
-             * Конструкция настраивает периодичность запуска.
-             * В нашем случае, мы будем запускать задачу через 10 секунд
-             * и делать это бесконечно.
-             */
+
             SimpleScheduleBuilder times = simpleSchedule()
                     .withIntervalInSeconds(
                             Integer.parseInt(
                                     properties.getProperty("rabbit.interval")))
                     .repeatForever();
 
-            /*
-             * 4. Задача выполняется через триггер.
-             * Здесь можно указать, когда начинать запуск.
-             * Мы хотим сделать это сразу.
-             */
             Trigger trigger = newTrigger()
                     .startNow()
                     .withSchedule(times)
                     .build();
 
-            /*
-             * 5. Загрузка задачи и триггера в планировщик.
-             * В итоге получаем программу, которая печатает
-             * на консоль текст через 10 секунд.
-             */
             scheduler.scheduleJob(job, trigger);
             Thread.sleep(10000);
             scheduler.shutdown();
@@ -110,10 +82,6 @@ public class AlertRabbit {
         }
     }
 
-    /*
-     * Внутри этого класса нужно описать требуемые действия.
-     * В нашем случае - это вывод на консоль текста.
-     */
     public static class Rabbit implements Job {
         @Override
         public void execute(JobExecutionContext context) throws JobExecutionException {
