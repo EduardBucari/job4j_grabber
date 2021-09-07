@@ -1,4 +1,4 @@
-package ru.job4j.utils;
+package ru.job4j.grabber.utils;
 
 import org.junit.Test;
 import java.time.LocalDate;

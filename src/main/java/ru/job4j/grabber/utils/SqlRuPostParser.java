@@ -1,4 +1,4 @@
-package ru.job4j.post;
+package ru.job4j.grabber.utils;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -8,16 +8,9 @@ import org.jsoup.select.Elements;
 import java.io.IOException;
 
 /**
- * Загрузка деталей поста.
- * Задание.
- * Создайте метод для загрузки деталей объявления.
  *
- * Мы научились получать ссылку для поста.
- * Теперь нужно научиться извлекать данные по этой ссылке:
- * https://www.sql.ru/forum/1325330/lidy-be-fe-senior-cistemnye-analitiki-qa-i-devops-moskva-do-200t
- * Что нужно для Post?
- * - Описание.
- * - Дата создания.
+ * Задание.
+ * В этом задании нужно собрать все элементы парсинга в классе SqlRuParse.
  */
 public class SqlRuPostParser {
 

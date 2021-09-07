@@ -1,4 +1,4 @@
-package ru.job4j.post;
+package ru.job4j.grabber;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -22,8 +22,12 @@ public class Post {
     private String description;
     private LocalDateTime created;
 
+    public Post() {
+    }
+
     // Constructor:
-    public Post(int id, String title, String link, String description, LocalDateTime created) {
+    public Post(int id, String title, String link,
+                String description, LocalDateTime created) {
         this.id = id;
         this.title = title;
         this.link = link;
@@ -97,7 +101,6 @@ public class Post {
     public String toString() {
         return String.format(
                 "id: %s%ntitle: %s%nlink: %s%ndescription: %s%ncreated: %s%n",
-                id, title, link, description, FORMATTER.format(created)
-        );
+                id, title, link, description, FORMATTER.format(created));
     }
 }
