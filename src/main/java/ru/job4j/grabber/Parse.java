@@ -3,7 +3,13 @@ package ru.job4j.grabber;
 import java.util.List;
 
 /**
+ * Извлечение данных с сайта.
  * Интерфейс описывающий парсинг сайта.
+ * Этот Интерфейс позволяет собрать короткое описание всех объявлений,
+ * а так же загрузить детали по каждому объявлению.
+ *
+ * Описание компонента через интерфейс позволяет расширить наш проект.
+ * Например, осуществить сбор данных с других площадок: SqlRuParse, HhRuParse, SuperJobParse.
  */
 public interface Parse {
 
@@ -12,6 +18,12 @@ public interface Parse {
      *
      * @param link Ссылка на страницу с постами.
      * @return Список постов.
+     *
+     * list(link) - этот метод загружает список объявлений по ссылке типа:
+     * - https://www.sql.ru/forum/job-offers/1
+     *
+     * detail(link) - этот метод загружает детали объявления по ссылке типа:
+     * - https://www.sql.ru/forum/1323839/razrabotchik-java-g-kazan
      */
     List<Post> list(String link);
 
