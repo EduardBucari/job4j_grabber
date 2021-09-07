@@ -14,14 +14,17 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+
 /**
  * SqlRuParse.
  * Задание.
  * 1. Реализуйте класс SqlRuParse.
+ *    Класс парсит заданный сайт, в размере 2 страниц:
+ *    https://www.sql.ru/forum/job-offers
  * 2. Парсер даты нужно сделать полем и принимать в конструкторе.
  *
  * В этом задании нужно собрать все элементы парсинга в классе SqlRuParse.
- * Создадать интерфейс описывающий парсинг сайта.
+ * Создадать интерфейс Parse.java описывающий парсинг сайта.
  * Метод list загружает список всех постов.
  * Метод detail загружает все детали одного поста
  * (имя, описание, дату обновления, дату создания, ссылки на пост).
@@ -37,7 +40,6 @@ public class SqlRuParse implements Parse {
     @Override
     public List<Post> list(String link) {
         List<Post> rsl = new ArrayList<>();
-        int id = 0;
         try {
             Document doc = Jsoup.connect(link).get();
             Elements row = doc.select(".postslisttopic");
@@ -45,12 +47,9 @@ public class SqlRuParse implements Parse {
                 Element href = td.child(0);
                 Element element = td.parent();
                 Post post = new Post();
-               // post.setId(id++);
                 post.setLink(href.attr("href"));
                 post.setTitle(href.text());
-                post.setCreated(
-                        dateTimeParser.parse(
-                                element.child(5).text()));
+                post.setCreated(dateTimeParser.parse(element.child(5).text()));
                 rsl.add(post);
             }
         } catch (IOException e) {
@@ -67,7 +66,7 @@ public class SqlRuParse implements Parse {
             Elements row = doc.select(".msgBody");
             String description = row.get(1).text();
             post.setDescription(description);
-            Elements dates = doc.select("msgFooter");
+            Elements dates = doc.select(".msgFooter");
             String date = dates.get(0).text();
             int indexLast = date.indexOf("[") - 1;
             date = date.substring(0, indexLast);
