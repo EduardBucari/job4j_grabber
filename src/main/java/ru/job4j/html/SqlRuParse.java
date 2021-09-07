@@ -14,7 +14,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-
 /**
  * SqlRuParse.
  * Задание.
@@ -32,11 +31,9 @@ import java.util.List;
 public class SqlRuParse implements Parse {
 
     private final DateTimeParser dateTimeParser;
-
     public SqlRuParse(DateTimeParser dateTimeParser) {
         this.dateTimeParser = dateTimeParser;
     }
-
     @Override
     public List<Post> list(String link) {
         List<Post> rsl = new ArrayList<>();
@@ -49,6 +46,7 @@ public class SqlRuParse implements Parse {
                 Post post = new Post();
                 post.setLink(href.attr("href"));
                 post.setTitle(href.text());
+                //post.setCreated(new SqlRuDateTimeParser().parse(element.child(5).text()));
                 post.setCreated(dateTimeParser.parse(element.child(5).text()));
                 rsl.add(post);
             }
@@ -57,7 +55,6 @@ public class SqlRuParse implements Parse {
         }
         return rsl;
     }
-
     @Override
     public Post detail(String link) {
         Post post = new Post();
@@ -80,7 +77,6 @@ public class SqlRuParse implements Parse {
         }
         return post;
     }
-
     public static void main(String[] args) {
         SqlRuParse s = new SqlRuParse(new SqlRuDateTimeParser());
         System.out.println(s.list("https://www.sql.ru/forum/job-offers"));
