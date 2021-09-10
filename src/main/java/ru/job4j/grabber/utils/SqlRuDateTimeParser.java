@@ -22,18 +22,18 @@ public class SqlRuDateTimeParser implements DateTimeParser {
 
     // В колекцию Map вносим календарные данные(месяц-ключ, номер месяца-значение):
     private static final Map<String, String> MONTHS = Map.ofEntries(
-            Map.entry("Январь", "01"),
-            Map.entry("Февраль", "02"),
-            Map.entry("Март", "03"),
-            Map.entry("Апрель", "04"),
-            Map.entry("Май", "05"),
-            Map.entry("Июнь", "06"),
-            Map.entry("Июль", "07"),
-            Map.entry("Август", "08"),
-            Map.entry("Сенябрь", "09"),
-            Map.entry("Октябрь", "10"),
-            Map.entry("Ноябрь", "11"),
-            Map.entry("Декабрь", "12")
+            Map.entry("янв", "1"),
+            Map.entry("фев", "2"),
+            Map.entry("мар", "3"),
+            Map.entry("апр", "4"),
+            Map.entry("май", "5"),
+            Map.entry("июн", "6"),
+            Map.entry("июл", "7"),
+            Map.entry("авг", "8"),
+            Map.entry("сен", "9"),
+            Map.entry("окт", "10"),
+            Map.entry("ноя", "11"),
+            Map.entry("дек", "12")
     );
 
     /**
